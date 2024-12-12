@@ -14,11 +14,11 @@ import (
 
 func init() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("no env file found")
+		//log.Fatal("no env file found")
 	}
 }
 
-func env() (string, string, string) {
+func env() (string, string, string, string) {
 	var res []string
 	for _, e := range []string{
 		"API_KEY",
@@ -32,7 +32,7 @@ func env() (string, string, string) {
 		}
 		res = append(res, a)
 	}
-	return res[0], res[1], res[2]
+	return res[0], res[1], res[2], res[3]
 }
 
 func retrieveUsername(code string) (string, error) {
@@ -51,7 +51,7 @@ func retrieveUsername(code string) (string, error) {
 	access_token := res.AccessToken
 	token_type := res.TokenType
 
-	res2, err = discord.Me(
+	res2, err := discord.Me(
 		access_token, token_type,
 	)
 	if err != nil {
@@ -100,7 +100,7 @@ func main() {
 	})
 
 	port := 4000
-	err = http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 	if err != nil {
 		log.Println(err)
 	}
