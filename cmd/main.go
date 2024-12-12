@@ -89,6 +89,7 @@ func main() {
 		code := r.URL.Query().Get("code")
 		nickname, err := retrieveUsername(code)
 		if err != nil {
+      log.Print(err)
 			http.Error(
 				w,
 				"Discord API error",
